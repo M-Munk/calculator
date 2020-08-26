@@ -36,3 +36,31 @@ keys.forEach((key) => {
     }
   });
 });
+
+function calculate(firstNumber, secondNumber, operation) {
+  let result = 0;
+  switch (operation) {
+    case "addition":
+      result = add(firstNumber, secondNumber);
+      document.getElementById("output").innerHTML = result;
+      return result;
+    case "subtraction":
+      result = subtract(firstNumber, secondNumber);
+      document.getElementById("output").innerHTML = result;
+      return result;
+    case "multiplication":
+      result = multiply(firstNumber, secondNumber);
+      document.getElementById("output").innerHTML = result;
+      return result;
+    case "division":
+      if (secondNumber === 0) {
+        document.getElementById("output").innerHTML = "don't do that";
+        break;
+      }
+      result = divide(firstNumber, secondNumber);
+      document.getElementById("output").innerHTML = result.toFixed(1);
+      return result.toFixed(1);
+    default:
+      break;
+  }
+}
