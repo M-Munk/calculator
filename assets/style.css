@@ -6,11 +6,11 @@
 }
 
 body {
-  font-family: /*"Anonymous Pro",*/ monospace;
+  font-family: monospace;
   background-color: var(--white-background-color);
   font-weight: 400;
   line-height: 1.65;
-  color: #333;
+  color: #0a3152;
   text-align: center;
 }
 h1 {
@@ -19,11 +19,13 @@ h1 {
 }
 kbd {
   font-size: 3.2em;
-  /* font-family: "Anonymous Pro", monospace; */
 }
 .key {
   background-color: var(--off-white-color);
   color: var(--grey-color);
+  border: var(--grey-color) solid;
+  border-radius: 9%;
+  font-size: 3.25em;
 }
 .symbol {
   background-color: var(--blue-color);
@@ -48,11 +50,12 @@ kbd {
   border: var(--dark-color) solid;
   padding-top: 5px;
   padding-right: 5px;
+  overflow: hidden;
 }
 .zero {
   grid-column-end: span 2;
 }
-.key {
-  border: var(--grey-color) solid;
-  border-radius: 7%;
+#decimal {
+  background-color: var(--off-white-color);
+  color: var(--grey-color);
 }
