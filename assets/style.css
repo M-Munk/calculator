@@ -24,7 +24,7 @@ kbd {
   background-color: var(--off-white-color);
   color: var(--grey-color);
   border: var(--grey-color) solid;
-  border-radius: 9%;
+  border-radius: 20px;
   font-size: 3.25em;
 }
 .symbol {
@@ -36,8 +36,8 @@ kbd {
   grid-template-columns: repeat(4, 100px);
   grid-template-rows: minmax(100px, auto) repeat(5, 80px);
   margin: auto;
-  border: var(--dark-color) solid 10px;
-  border-radius: 2%;
+  border: var(--dark-color) solid 15px;
+  border-radius: 25px;
   height: 500px;
   width: 400px;
   background: #333;
@@ -51,6 +51,7 @@ kbd {
   padding-top: 5px;
   padding-right: 5px;
   overflow: hidden;
+  border-radius: 20px;
 }
 .zero {
   grid-column-end: span 2;
