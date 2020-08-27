@@ -41,19 +41,19 @@ keys.forEach((key) => {
       console.log(firstNumber);
       oneElement(firstNumber, operation);
     }
-    if (firstNumber && operation) {
-      displayValue = "";
-      updateDisplay(displayValue);
-      //   if (e.srcElement.classList.contains("num")) {
-      //     displayValue += e.srcElement.innerText;
-      //     updateDisplay(displayValue);
-      //   } else if (e.srcElement.classList.contains("symbol")) {
-      //     secondNumber = parseInt(displayValue);
-      //     console.log(secondNumber);
-      //     result = calculate(firstNumber, secondNumber, operation);
-      //     updateDisplay(result);
-      //   }
-    }
+    // if (firstNumber && operation) {
+    //   displayValue = "";
+    //   updateDisplay(displayValue);
+    //   if (e.srcElement.classList.contains("num")) {
+    //     displayValue += e.srcElement.innerText;
+    //     updateDisplay(displayValue);
+    //   }
+    //   } else if (e.srcElement.classList.contains("symbol")) {
+    //     secondNumber = parseInt(displayValue);
+    //     console.log(secondNumber);
+    //     result = calculate(firstNumber, secondNumber, operation);
+    //     updateDisplay(result);
+    //   }
   });
 });
 
@@ -66,16 +66,17 @@ function oneElement(firstNumber, operation) {
   if (operation === "AC") {
     displayValue = 0;
     updateDisplay(displayValue);
-    firstNumber = "";
     return;
   } else if (operation === "%") {
     displayValue = percent(firstNumber);
     updateDisplay(displayValue);
+    operation = "";
     firstNumber = "";
     return;
   } else if (operation === "±") {
     displayValue = changeSign(firstNumber);
     updateDisplay(displayValue);
+    operation = "";
     firstNumber = parseInt(displayValue);
   }
 }
