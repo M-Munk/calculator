@@ -22,6 +22,7 @@ let firstNumber = ""; //stores first value before operator
 let secondNumber = ""; //stores second value after operator
 let operation = ""; //stores operator
 let displayValue = ""; //displays on screen
+let result = "";
 
 //listen for clicks on keys
 const keys = document.querySelectorAll(".key");
@@ -34,11 +35,9 @@ keys.forEach((key) => {
       displayValue += e.srcElement.innerText;
       updateDisplay(displayValue);
     }
-    if (e.srcElement.classList.contains("symbol") && !firstNumber) {
+    if (e.srcElement.classList.contains("symbol")) {
       operation = e.srcElement.innerText;
-      console.log(operation);
       firstNumber = parseInt(displayValue);
-      console.log(firstNumber);
       oneElement(firstNumber, operation);
     }
     if (firstNumber && operation) {
@@ -46,18 +45,26 @@ keys.forEach((key) => {
         displayValue += e.srcElement.innerText;
         updateDisplay(displayValue);
       }
-    } else if (e.srcElement.classList.contains("symbol") && !secondNumber) {
+    }
+    if (
+      e.srcElement.classList.contains("symbol") &&
+      !secondNumber &&
+      firstNumber &&
+      operation &&
+      displayValue
+    ) {
       secondNumber = parseInt(displayValue);
       console.log(secondNumber);
-      let result = calculate(firstNumber, secondNumber, operation);
+      result = calculate(firstNumber, secondNumber, operation);
       updateDisplay(result);
       if (e.srcElement.innerText === "=") {
-        clearVariables();
+        // clearVariables();
       } else firstNumber = result;
     }
   });
 });
 
+//updates the display value
 function updateDisplay(displayValue) {
   document.getElementById("output").innerHTML = displayValue;
   return;
@@ -119,6 +126,7 @@ function calculate(firstNum, secondNum, math) {
   }
 }
 
+//clears all math variables
 function clearVariables() {
   firstNumber = "";
   secondNumber = "";
