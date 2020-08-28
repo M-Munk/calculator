@@ -27,33 +27,34 @@ let displayValue = ""; //displays on screen
 const keys = document.querySelectorAll(".key");
 keys.forEach((key) => {
   key.addEventListener("click", (e) => {
-    if (e.srcElement.classList.contains("num")) {
+    if (e.srcElement.classList.contains("num") && !firstNumber) {
       if (displayValue === 0) {
         displayValue = "";
       }
       displayValue += e.srcElement.innerText;
       updateDisplay(displayValue);
     }
-    if (e.srcElement.classList.contains("symbol")) {
+    if (e.srcElement.classList.contains("symbol") && !firstNumber) {
       operation = e.srcElement.innerText;
       console.log(operation);
       firstNumber = parseInt(displayValue);
       console.log(firstNumber);
       oneElement(firstNumber, operation);
     }
-    // if (firstNumber && operation) {
-    //   displayValue = "";
-    //   updateDisplay(displayValue);
-    //   if (e.srcElement.classList.contains("num")) {
-    //     displayValue += e.srcElement.innerText;
-    //     updateDisplay(displayValue);
-    //   }
-    //   } else if (e.srcElement.classList.contains("symbol")) {
-    //     secondNumber = parseInt(displayValue);
-    //     console.log(secondNumber);
-    //     result = calculate(firstNumber, secondNumber, operation);
-    //     updateDisplay(result);
-    //   }
+    if (firstNumber && operation) {
+      if (e.srcElement.classList.contains("num")) {
+        displayValue += e.srcElement.innerText;
+        updateDisplay(displayValue);
+      }
+    } else if (e.srcElement.classList.contains("symbol") && !secondNumber) {
+      secondNumber = parseInt(displayValue);
+      console.log(secondNumber);
+      let result = calculate(firstNumber, secondNumber, operation);
+      updateDisplay(result);
+      if (e.srcElement.innerText === "=") {
+        clearVariables();
+      } else firstNumber = result;
+    }
   });
 });
 
@@ -62,49 +63,64 @@ function updateDisplay(displayValue) {
   return;
 }
 
-function oneElement(firstNumber, operation) {
-  if (operation === "AC") {
+//evaluates single argument calculator operations
+function oneElement(firstNum, math) {
+  if (math === "AC") {
     displayValue = 0;
-    updateDisplay(displayValue);
+    clearVariables();
     return;
-  } else if (operation === "%") {
-    displayValue = percent(firstNumber);
-    updateDisplay(displayValue);
-    operation = "";
-    firstNumber = "";
-    return;
-  } else if (operation === "±") {
-    displayValue = changeSign(firstNumber);
+  } else if (math === "%") {
+    displayValue = percent(firstNum);
     updateDisplay(displayValue);
     operation = "";
     firstNumber = parseInt(displayValue);
+    return;
+  } else if (math === "±") {
+    displayValue = changeSign(firstNum);
+    updateDisplay(displayValue);
+    operation = "";
+    firstNumber = parseInt(displayValue);
+  } else if (math === "+" || math === "-" || math === "*" || math === "/") {
+    displayValue = "";
+    updateDisplay(displayValue);
   }
 }
 
-function calculate(firstNumber, secondNumber, operation) {
+//evaluates two argument calculator operations
+function calculate(firstNum, secondNum, math) {
   let result = 0;
-  switch (operation) {
+  switch (math) {
     case "+":
-      result = add(firstNumber, secondNumber);
+      result = add(firstNum, secondNum);
       document.getElementById("output").innerHTML = result;
+      clearVariables();
       return result;
     case "-":
-      result = subtract(firstNumber, secondNumber);
+      result = subtract(firstNum, secondNum);
       document.getElementById("output").innerHTML = result;
+      clearVariables();
       return result;
     case "*":
-      result = multiply(firstNumber, secondNumber);
+      result = multiply(firstNum, secondNum);
       document.getElementById("output").innerHTML = result;
+      clearVariables();
       return result;
     case "/":
-      if (secondNumber === 0) {
+      if (secondNum === 0) {
         document.getElementById("output").innerHTML = "don't do that";
         break;
       }
-      result = divide(firstNumber, secondNumber);
+      result = divide(firstNum, secondNum);
       document.getElementById("output").innerHTML = result.toFixed(2);
+      clearVariables();
       return result.toFixed(2);
     default:
       break;
   }
+}
+
+function clearVariables() {
+  firstNumber = "";
+  secondNumber = "";
+  operation = "";
 }
