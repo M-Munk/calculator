@@ -78,8 +78,8 @@ symbols.forEach((symbol) => {
 //updates the display value & makes sure it won't overrun display
 function updateDisplay(value) {
   string = value.toString();
-  if (string.length > 12) {
-    displayValue = value.toPrecision(12);
+  if (string.length > 11) {
+    displayValue = value.toPrecision(11);
   }
   document.getElementById("output").innerHTML = displayValue;
   return;
