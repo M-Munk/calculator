@@ -23,13 +23,17 @@ let secondNumber = null; //stores second value after operator
 let operation = null; //stores operator
 let displayValue = ""; //displays on screen
 
-//listen for clicks on numbers
+//listen for clicks on numbers and decimal point
+//evaluate string for only one decimal point
 const nums = document.querySelectorAll(".num");
 nums.forEach((num) => {
   num.addEventListener("click", (e) => {
-    console.log(e.srcElement.innerText);
     let numClicked = e.srcElement.innerText;
-    setDisplayValue(numClicked);
+    if (numClicked === ".") {
+      if (displayValue.indexOf(".") === -1) {
+        setDisplayValue(numClicked);
+      }
+    } else setDisplayValue(numClicked);
   });
 });
 
@@ -45,7 +49,6 @@ nums.forEach((num) => {
 const symbols = document.querySelectorAll(".symbol");
 symbols.forEach((symbol) => {
   symbol.addEventListener("click", (e) => {
-    console.log(e.srcElement.innerText);
     let mathSymbol = e.srcElement.innerText;
     if (!firstNumber) {
       if (mathSymbol !== "=") {
@@ -58,12 +61,10 @@ symbols.forEach((symbol) => {
       if (mathSymbol !== "=") {
         setOperation(mathSymbol);
       }
-      console.log(operation);
       displayValue = 0;
       oneElement(firstNumber, operation);
     } else if (!secondNumber) {
       setSecondNumber(displayValue);
-      console.log(secondNumber);
       let result = calculate(firstNumber, secondNumber, operation);
       updateDisplay(result);
       if (mathSymbol !== operation && mathSymbol !== "=") {
@@ -78,9 +79,7 @@ symbols.forEach((symbol) => {
 function updateDisplay(value) {
   string = value.toString();
   if (string.length > 12) {
-    console.log("true");
-    displayValue = value.toExponential(4);
-    console.log(displayValue);
+    displayValue = value.toPrecision(12);
   }
   document.getElementById("output").innerHTML = displayValue;
   return;
